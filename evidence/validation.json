@@ -1,0 +1,35 @@
+{
+  "generated_at_utc": "2026-10-06T08:05:14.441870+00:00",
+  "local_tests": {
+    "passed": 22,
+    "failed": 0,
+    "receipt_fixtures": "synthetic",
+    "command": "node --test tests/core.test.mjs"
+  },
+  "syntax_checks": "passed",
+  "static_asset_and_dom_reference_checks": "passed",
+  "live_mainnet": {
+    "status": "passed",
+    "source": "live_rpc",
+    "chain_id": 5042,
+    "rpc_endpoint": "https://rpc.blockdaemon.mainnet.arc.io",
+    "transaction_hash": "0x61ee7a59e3f2676e0d56a1a910eeb69ece5f6e80710589054a837129a366d256",
+    "amount_usdc": "18",
+    "transaction_fee_usdc": "0.003111740155742587",
+    "block": "24528444",
+    "third_party_example": true
+  },
+  "primary_rpc_workspace_observation": "HTTP 403; documented public Blockdaemon endpoint was used successfully",
+  "deployed_browser_checks": "not_completed",
+  "webmcp_supported_browser_validation": "unavailable",
+  "public_deployment": "not_created",
+  "public_repository": "not_created",
+  "grant_application": "not_submitted",
+  "asset_sha256": {
+    "app.mjs": "541620c15a369255d4aa1c1178d4706126afd1ff866287d1fb94d46d73de5676",
+    "core.mjs": "cc2cb2a545436b0bf5f6eac5c998ce80e1ac8bc3691cb1c77ffb1370ee7d7cf8",
+    "index.html": "c8c13781b75222f788619b7003749e1fe481125616b6fb9cbb0d6c25fa85bc3f",
+    "practice.mjs": "dc4a481c5ffb8834bbe9fdbb39d1ee848c6fa86eafe0ccb6edab1e312e2bd021",
+    "styles.css": "d638a776b83c3f478f34a1e9f0f4be24cb22e97a36150f727c8a5c88d4b104d6"
+  }
+}

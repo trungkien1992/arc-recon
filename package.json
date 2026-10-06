@@ -1,0 +1,13 @@
+{
+  "name": "arc-recon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/core.test.mjs",
+    "check": "node --check dist/core.mjs && node --check dist/app.mjs && node --check dist/practice.mjs",
+    "preview": "python3 -m http.server 8080 --directory dist"
+  },
+  "license": "MIT",
+  "description": "Read-only Arc USDC payment reconciliation with native-event deduplication and fee reporting."
+}

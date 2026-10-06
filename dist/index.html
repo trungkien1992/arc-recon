@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e1422">
+  <meta name="description" content="Check Arc USDC payment records against included transactions. Reconcile native and ERC-20 transfers once, see USDC fees, and export a CSV.">
+  <title>Arc Recon — USDC payment reconciliation</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1422'/%3E%3Cpath d='M7 22V10h7M18 10h7v12h-7M12 16h8' stroke='%237797ff' stroke-width='3' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brandmark" aria-hidden="true">[=]</span><span>Arc Recon</span></div>
+    <span class="readonly">Read-only · no wallet connection</span>
+  </header>
+  <main>
+    <div class="pagehead">
+      <div><p class="eyebrow">USDC PAYMENT RECONCILIATION</p><h1>Check the payments.<br>Keep the record.</h1><p class="intro">Match payment records to Arc transfers and export the results.</p></div>
+      <div class="networkbox"><label for="network">Network</label><select id="network"><option value="mainnet">Arc mainnet</option><option value="testnet">Arc testnet</option><option value="practice">Practice · synthetic data</option></select><span id="network-detail">Chain 5042 · fees in USDC</span></div>
+    </div>
+    <div id="practice-notice" class="practice-notice" hidden>Practice data is synthetic. These results do not prove a mainnet payment.</div>
+    <section class="workspace" aria-label="Payment batch">
+      <div class="inputpanel">
+        <div class="panelhead"><h2>Payment records</h2><span class="count">Up to 25 rows</span></div>
+        <label for="payments" class="fieldlabel">Paste CSV with a reference, transaction hash, recipient and USDC amount.</label>
+        <textarea id="payments" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off" placeholder="reference,transaction_hash,recipient,amount_usdc&#10;Invoice 001,0x…transaction hash…,0x…recipient address…,0.5"></textarea>
+        <p class="helper">Optional column: <code>sender</code>. Amounts support up to 18 decimal places. References are labels; they are not verified on-chain.</p>
+        <div class="inputtools"><button id="template" class="textbutton" type="button">Download template</button><button id="practice" class="textbutton" type="button">Load practice batch</button></div>
+        <div class="actions"><button id="check" class="primary" type="button">Check payments</button><button id="example" class="secondary" type="button">Find a public example</button></div>
+        <p id="message" class="message" role="status" aria-live="polite">Your references stay in this browser. Arc RPC receives transaction hashes.</p>
+      </div>
+      <aside class="summarypanel" aria-label="Batch summary">
+        <p class="eyebrow">BATCH RESULT</p><div class="amount"><span id="matched-total">—</span><span class="unit">USDC matched</span></div>
+        <div class="summaryline"><span>Matching records</span><strong id="matched-count">—</strong></div>
+        <div class="summaryline"><span>Distinct transactions</span><strong id="transaction-count">—</strong></div>
+        <div class="summaryline"><span>Total transaction fees</span><strong><span id="fee-total">—</span> USDC</strong></div>
+        <p class="summarynote">Native sends and ERC-20 USDC transfers count once. Reusing the same transfer in this batch is flagged.</p>
+        <div class="exports"><button id="export-csv" class="secondary" type="button" disabled>Export results CSV</button><button id="export-json" class="textbutton" type="button" disabled>Download evidence JSON</button></div>
+        <p id="report-meta" class="reportmeta">Nothing checked yet.</p>
+      </aside>
+    </section>
+    <section class="resultsection" aria-labelledby="results-title">
+      <div class="resultshead"><h2 id="results-title">Reconciliation ledger</h2><span id="results-label">Results appear after checking</span></div>
+      <div id="empty" class="empty"><span class="emptyglyph" aria-hidden="true">[ ]</span><p>Your payment ledger is empty.</p><p class="muted">Paste a batch, find a public transfer, or try the clearly labelled practice data.</p></div>
+      <div id="tablewrap" class="tablewrap" hidden><table><thead><tr><th scope="col">Reference</th><th scope="col">Expected USDC</th><th scope="col">Result</th><th scope="col">Transaction fee</th><th scope="col">Evidence</th></tr></thead><tbody id="results"></tbody></table></div>
+    </section>
+    <details class="method"><summary>What a matching result means</summary><div class="methodbody"><p>The selected Arc RPC reports a successful included transaction. Its native USDC movement matches the expected recipient, amount and optional sender. The transaction receipt and block must agree.</p><p>Arc emits native USDC movement events at 18 decimals. ERC-20 USDC also emits a 6-decimal event for the same transfer. This tool uses the native movement stream to count each payment once. Mint and burn events are excluded from payment matching.</p><p>Fees use <code>gasUsed × effectiveGasPrice</code> at 18 decimals and belong to the transaction's gas payer. If multiple records use one transaction, its fee appears on each row but is counted only once in the total.</p><p>A reference is an off-chain label. This is a comparison of transfer details, not proof of unique invoice settlement, a tax receipt or an audit. Results depend on the selected public RPC. Deduplication applies within this batch; there is no shared settlement register. Historical testnet logs from before the native event change are unsupported.</p></div></details>
+    <footer><span>Arc Recon · prototype</span><nav aria-label="Project references"><a href="https://docs.arc.io/arc/references/usdc-system-events" target="_blank" rel="noopener noreferrer">Arc event docs</a><a id="explorer" href="https://explorer.arc.io" target="_blank" rel="noopener noreferrer">Arc Explorer</a></nav></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "networkKey": "mainnet",
+  "chainId": 5042,
+  "source": "live_rpc",
+  "checkedAt": "2026-10-06T08:00:53.983Z",
+  "results": [
+    {
+      "reference": "Public transfer example",
+      "hash": "0x61ee7a59e3f2676e0d56a1a910eeb69ece5f6e80710589054a837129a366d256",
+      "recipient": "0x8366a39cc670b4001a1121b8f6a443a643e40951",
+      "sender": "0x7a7ca4d6e6f5a4245df3b75f1b0184467e200167",
+      "amount": "18",
+      "status": "matched",
+      "detail": "Included native USDC movement matches the expected transfer details.",
+      "actualAmount": "18",
+      "actualSender": "0x7a7ca4d6e6f5a4245df3b75f1b0184467e200167",
+      "logIndex": "12",
+      "fee": "0.003111740155742587",
+      "feePayer": "0x7a7ca4d6e6f5a4245df3b75f1b0184467e200167",
+      "block": "24528444",
+      "time": "2026-10-06T08:00:33.000Z"
+    }
+  ],
+  "summary": {
+    "matched": 1,
+    "rows": 1,
+    "matchedUsdc": "18",
+    "transactionFeesUsdc": "0.003111740155742587",
+    "distinctTransactions": 1
+  },
+  "rpcEndpoint": "https://rpc.blockdaemon.mainnet.arc.io",
+  "exampleOwnership": "Public third-party transfer; no claim of builder or customer activity."
+}
